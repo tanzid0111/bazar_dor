@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 
-// English to Bengali number converter
+
 const toBengaliNumber = (num: number | string): string => {
   if (num === undefined || num === null) return "";
   const englishDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -69,14 +69,12 @@ export default function Product() {
   const handleProductClick = (e: React.MouseEvent, slug: string) => {
     e.preventDefault();
 
-    
     if (!session) {
-      toast.error("দয়া করে প্রথমে সাইন ইন করুন!");
+      toast.error("দয়া করে প্রথমে সাইন ইন করুন!");
       router.push("/signin");
       return;
     }
 
-    
     router.push(`/product/${slug}`);
   };
 
@@ -88,18 +86,15 @@ export default function Product() {
     );
   }
 
-
   const topRisers = [...products]
     .filter((item) => item.change?.dir === "up")
     .sort((a, b) => (b.change?.pct || 0) - (a.change?.pct || 0))
     .slice(0, 6);
 
- 
   const topFallers = [...products]
     .filter((item) => item.change?.dir === "down")
     .sort((a, b) => (b.change?.pct || 0) - (a.change?.pct || 0))
     .slice(0, 6);
-
 
   const renderProductCard = (item: ProductType) => {
     const isUp = item.change?.dir === "up";
@@ -155,7 +150,6 @@ export default function Product() {
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8 space-y-12">
-    
       {topRisers.length > 0 && (
         <section>
           <div className="flex items-center gap-2 mb-5">
@@ -164,13 +158,12 @@ export default function Product() {
               আজ দাম বেড়েছে
             </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
             {topRisers.map(renderProductCard)}
           </div>
         </section>
       )}
 
-  
       {topFallers.length > 0 && (
         <section>
           <div className="flex items-center gap-2 mb-5">
@@ -179,14 +172,14 @@ export default function Product() {
               আজ দাম কমেছে
             </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
             {topFallers.map(renderProductCard)}
           </div>
         </section>
       )}
 
-      
-      <section>
+     
+      <section id="all-products" className="scroll-mt-8">
         <div className="mb-5 space-y-1">
           <h2 className="text-2xl font-bold text-gray-900">সব পণ্য</h2>
           <p className="text-sm text-gray-500">
@@ -194,7 +187,7 @@ export default function Product() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
           {products.map(renderProductCard)}
         </div>
       </section>

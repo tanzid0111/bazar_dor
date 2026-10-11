@@ -8,3 +8,6 @@
     transform: translateX(-50%);
   }
 }
+html {
+  scroll-behavior: smooth;
+}
